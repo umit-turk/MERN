@@ -21,6 +21,7 @@ import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
 import AddPostForm from "./components/AddPostForm";
 import { fetchPosts } from "./actions/post";
+import PostDetails from "./components/PostDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +71,7 @@ const App = () => {
               color="secondary"
               className={classes.title}
             >
-              <a href="http://localhost:3000/posts">BLOG</a>
+              <a href="https://blog-front-yt.herokuapp.com/posts">BLOG</a>
             </Typography>
             <Button
               color="primary"
@@ -88,6 +89,7 @@ const App = () => {
             <Router>
               <Switch>
                 <Route exact path="/posts" component={PostsList} />
+                <Route exact path="/posts/:id" component={PostDetails} />
               </Switch>
               <Redirect from="/" to="/posts" />
             </Router>
