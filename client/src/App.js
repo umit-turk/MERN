@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import {
   CssBaseline,
   Container,
@@ -18,6 +19,8 @@ import {
 } from "react-router-dom";
 import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
+import AddPostForm from "./components/AddPostForm";
+import { fetchPosts } from "./actions/post";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,25 +38,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles();
   return (
     <>
       <CssBaseline />
       <Container maxWidth="lg">
-        <AppBar position="static" color="inherit" elevation={0} >
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.container}
-            color="inherit"
-          />
-          <Typography variant="h6" color="secondary" className={classes.title}>
-            <a href="http://localhost:3000/posts">BLOG</a>
-          </Typography>
-          <Button color="primary" variant="outlined" startIcon={<PenIcon />}>
-            Yeni yazı
-          </Button>
-        </Toolbar>
+        <AppBar position="static" color="inherit" elevation={0}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.container}
+              color="inherit"
+            />
+            <Typography
+              variant="h6"
+              color="secondary"
+              className={classes.title}
+            >
+              <a href="http://localhost:3000/posts">BLOG</a>
+            </Typography>
+            <Button
+              color="primary"
+              variant="outlined"
+              startIcon={<PenIcon />}
+              onClick={handleOpen}
+            >
+              Yeni yazı
+            </Button>
+          </Toolbar>
         </AppBar>
 
         <Grid container className={classes.container}>
@@ -67,6 +94,8 @@ const App = () => {
           </Grid>
         </Grid>
       </Container>
+
+      <AddPostForm open={open} handleClose={handleClose} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import express from "express";
-/* import bodyParser from "body-parser"; */
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from "cors";
@@ -8,8 +8,8 @@ import postRoutes from './routes/posts.js'
 const app = express();
 dotenv.config();
 
-/* app.use(bodyParser.json({ limit: "30mb", extened: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extened: true })); */
+app.use(bodyParser.json({ limit: "30mb", extened: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extened: true }));
 app.use(cors());
 
 app.get("/", (req, res) => {
