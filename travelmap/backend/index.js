@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
-const pinRoute = require("./routes/pins")
+const pinRoute = require("./routes/pins");
+const userRoute = require("./routes/users");
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
   })
   .then(() => {
     console.log("mongodb connected");
@@ -19,7 +21,8 @@ mongoose
 
   app.use(express.json())
 
-  app.use("/api/pins", pinRoute)
+  app.use("/api/pins", pinRoute);
+  app.use("/api/users", userRoute);
 
 
 app.listen(8800, () => {
